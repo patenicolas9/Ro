@@ -26,6 +26,7 @@
       box-shadow: 0 10px 25px rgba(0,0,0,0.1);
       max-width: 400px;
       width: 100%;
+      position: relative;
     }
 
     h1 {
@@ -36,7 +37,7 @@
 
     .btn-container {
       position: relative;
-      min-height: 120px;
+      min-height: 80px;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -52,9 +53,10 @@
       border-radius: 50px;
       cursor: pointer;
       box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.2s;
+      transition: transform 0.1s ease;
       background-color: #ff4d4d;
       color: white;
+      z-index: 2;
     }
 
     .btn:hover { transform: scale(1.05); }
@@ -84,7 +86,11 @@
     }
 
     #yesBtn { background-color: #25D366; }
-    #noBtn { position: absolute; }
+    
+    #noBtn { 
+      background-color: #ff4d4d; 
+      transition: top 0.2s ease, left 0.2s ease;
+    }
 
     .step { display: none; }
     .step.active { display: block; }
@@ -102,14 +108,14 @@
     <div id="step1" class="step active">
       <h1>¿Aceptas salir conmigo? 🌹</h1>
       <div class="btn-container">
-        <button class="btn" id="yesBtn" onclick="nextStep(2)">¡Sí!</button>
+        <button class="btn" id="yesBtn" onclick="nextStep(2)">Sí</button>
         <button class="btn" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">No</button>
       </div>
     </div>
 
     <!-- PASO 2 -->
     <div id="step2" class="step">
-      <h1>¿Qué día prefieres? 📅</h1>
+      <h1>¿Qué día preferís? 📅</h1>
       <div class="btn-container">
         <button class="btn" onclick="selectOption('dia', 'Lunes'); nextStep(3)">Lunes</button>
         <button class="btn" onclick="selectOption('dia', 'Martes'); nextStep(3)">Martes</button>
@@ -170,12 +176,21 @@
 
     function moverBoton() {
       const noBtn = document.getElementById('noBtn');
-      const container = document.querySelector('.card');
-      const rect = container.getBoundingClientRect();
-      const x = Math.random() * (rect.width - 100);
-      const y = Math.random() * (rect.height - 50);
-      noBtn.style.left = `${x}px`;
-      noBtn.style.top = `${y}px`;
+      const card = document.querySelector('.card');
+      
+      noBtn.style.position = 'absolute';
+
+      const cardRect = card.getBoundingClientRect();
+      const btnRect = noBtn.getBoundingClientRect();
+
+      const maxX = cardRect.width - btnRect.width - 20;
+      const maxY = cardRect.height - btnRect.height - 20;
+
+      const randomX = Math.max(10, Math.floor(Math.random() * maxX));
+      const randomY = Math.max(10, Math.floor(Math.random() * maxY));
+
+      noBtn.style.left = `${randomX}px`;
+      noBtn.style.top = `${randomY}px`;
     }
 
     function nextStep(stepNumber) {
