@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>¿Salimos?</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #ffe6e6;
+      text-align: center;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+      max-width: 400px;
+      width: 100%;
+    }
+
+    h1 {
+      color: #d32f2f;
+      font-size: 1.6rem;
+      margin-bottom: 25px;
+    }
+
+    .btn-container {
+      position: relative;
+      min-height: 120px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 15px;
+      flex-wrap: wrap;
+    }
+
+    .btn {
+      padding: 12px 25px;
+      font-size: 1.1rem;
+      font-weight: bold;
+      border: none;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+      transition: transform 0.2s;
+      background-color: #ff4d4d;
+      color: white;
+    }
+
+    .btn:hover { transform: scale(1.05); }
+
+    .btn-card {
+      background: white;
+      border: 2px solid #ffe6e6;
+      border-radius: 15px;
+      padding: 10px;
+      cursor: pointer;
+      width: 130px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      transition: transform 0.2s;
+    }
+    .btn-card:hover { transform: scale(1.05); }
+    .btn-card img {
+      width: 100%;
+      height: 90px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+    .btn-card span {
+      display: block;
+      margin-top: 8px;
+      font-weight: bold;
+      color: #d32f2f;
+    }
+
+    #yesBtn { background-color: #25D366; }
+    #noBtn { position: absolute; }
+
+    .step { display: none; }
+    .step.active { display: block; }
+
+    .emoji {
+      font-size: 4rem;
+      margin-top: 15px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="card">
+    <!-- PASO 1 -->
+    <div id="step1" class="step active">
+      <h1>¿Aceptas salir conmigo? 🌹</h1>
+      <div class="btn-container">
+        <button class="btn" id="yesBtn" onclick="nextStep(2)">¡Sí!</button>
+        <button class="btn" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">No</button>
+      </div>
+    </div>
+
+    <!-- PASO 2 -->
+    <div id="step2" class="step">
+      <h1>¿Qué día prefieres? 📅</h1>
+      <div class="btn-container">
+        <button class="btn" onclick="selectOption('dia', 'Lunes'); nextStep(3)">Lunes</button>
+        <button class="btn" onclick="selectOption('dia', 'Martes'); nextStep(3)">Martes</button>
+        <button class="btn" onclick="selectOption('dia', 'Miércoles'); nextStep(3)">Miércoles</button>
+      </div>
+    </div>
+
+    <!-- PASO 3 (Con Imágenes) -->
+    <div id="step3" class="step">
+      <h1>¿Desayuno o Merienda? ☕</h1>
+      <div class="btn-container">
+        <div class="btn-card" onclick="selectOption('comida', 'Desayuno'); showHorarios('desayuno'); nextStep(4)">
+          <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=400&q=80" alt="Desayuno">
+          <span>Desayuno</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('comida', 'Merienda'); showHorarios('merienda'); nextStep(4)">
+          <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Merienda">
+          <span>Merienda</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 4 -->
+    <div id="step4" class="step">
+      <h1>¿A qué hora? ⏰</h1>
+      <div id="horariosDesayuno" class="btn-container" style="display:none;">
+        <button class="btn" onclick="selectOption('hora', '9:00 AM'); nextStep(5)">9 AM</button>
+        <button class="btn" onclick="selectOption('hora', '10:00 AM'); nextStep(5)">10 AM</button>
+        <button class="btn" onclick="selectOption('hora', '11:00 AM'); nextStep(5)">11 AM</button>
+      </div>
+      <div id="horariosMerienda" class="btn-container" style="display:none;">
+        <button class="btn" onclick="selectOption('hora', '4:00 PM'); nextStep(5)">4 PM</button>
+        <button class="btn" onclick="selectOption('hora', '5:00 PM'); nextStep(5)">5 PM</button>
+        <button class="btn" onclick="selectOption('hora', '6:00 PM'); nextStep(5)">6 PM</button>
+      </div>
+    </div>
+
+    <!-- PASO 5 -->
+    <div id="step5" class="step">
+      <h1>¿Dónde nos vemos? 🥐</h1>
+      <div class="btn-container">
+        <button class="btn" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
+        <button class="btn" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
+      </div>
+    </div>
+
+    <!-- PASO FINAL -->
+    <div id="step6" class="step">
+      <h1>¡Perfecto! Nos vemos 😉</h1>
+      <div class="emoji">😊</div>
+      <p id="resumen" style="color: #555; margin-top: 15px; font-size: 1.05rem;"></p>
+      <button class="btn" id="yesBtn" style="margin-top: 20px;" onclick="enviarWhatsApp()">Enviar confirmación por WhatsApp 📲</button>
+    </div>
+  </div>
+
+  <script>
+    const cita = { dia: '', comida: '', hora: '', lugar: '' };
+
+    function moverBoton() {
+      const noBtn = document.getElementById('noBtn');
+      const container = document.querySelector('.card');
+      const rect = container.getBoundingClientRect();
+      const x = Math.random() * (rect.width - 100);
+      const y = Math.random() * (rect.height - 50);
+      noBtn.style.left = `${x}px`;
+      noBtn.style.top = `${y}px`;
+    }
+
+    function nextStep(stepNumber) {
+      document.querySelectorAll('.step').forEach(step => step.classList.remove('active'));
+      document.getElementById(`step${stepNumber}`).classList.add('active');
+    }
+
+    function selectOption(key, value) { cita[key] = value; }
+
+    function showHorarios(tipo) {
+      document.getElementById('horariosDesayuno').style.display = tipo === 'desayuno' ? 'flex' : 'none';
+      document.getElementById('horariosMerienda').style.display = tipo === 'merienda' ? 'flex' : 'none';
+    }
+
+    function finalizar() {
+      nextStep(6);
+      document.getElementById('resumen').innerHTML = 
+        `Quedamos el <b>${cita.dia}</b> para un <b>${cita.comida}</b> a las <b>${cita.hora}</b> en <b>${cita.lugar}</b>.`;
+    }
+
+    function enviarWhatsApp() {
+      // REEMPLAZA ESTE NÚMERO POR EL TUYO (Código de país + número sin espacios ni signos +)
+      const miNumero = "1234567890"; 
+      const mensaje = `¡Hola! Quedamos el ${cita.dia} para un ${cita.comida} a las ${cita.hora} en ${cita.lugar} 😊`;
+      window.location.href = `https://wa.me/${miNumero}?text=${encodeURIComponent(mensaje)}`;
+    }
+  </script>
+
+</body>
+</html>
