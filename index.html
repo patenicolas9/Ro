@@ -83,6 +83,13 @@
       flex-wrap: wrap;
     }
 
+    /* Para separar las opciones verticalmente en el Paso 3 */
+    .btn-container-vertical {
+      flex-direction: column;
+      min-height: 140px;
+      gap: 20px;
+    }
+
     .btn {
       padding: 12px 25px;
       font-size: 1.05rem;
@@ -189,11 +196,11 @@
       </div>
     </div>
 
-    <!-- PASO 3: ¿Querés salir conmigo? (El botón "Más adelante" se escapa) -->
+    <!-- PASO 3: ¿Querés salir conmigo? (Opciones bien separadas verticalmente) -->
     <div id="step3" class="step">
       <div class="sims-header">Nueva Cita 🌹</div>
       <h1>¿Querés salir conmigo?</h1>
-      <div class="btn-container">
+      <div class="btn-container btn-container-vertical">
         <button class="btn btn-sims-green" onclick="nextStep(4)">¡Sí, acepto!</button>
         <button class="btn btn-sims-red" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">Más adelante</button>
       </div>
@@ -264,13 +271,14 @@
       </div>
     </div>
 
-    <!-- PASO 7: Lugar -->
+    <!-- PASO 7: Lugar (Con opción Cine agregada) -->
     <div id="step7" class="step">
       <div class="sims-header">Mapa del barrio 📍</div>
       <h1>¿Dónde nos vemos?</h1>
       <div class="btn-container">
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Cine'); finalizar()">Cine 🍿</button>
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
       </div>
     </div>
