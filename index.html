@@ -169,7 +169,7 @@
 
   <div class="sims-card">
     
-    <!-- PASO 1: Nombre de Sim (Cualquiera de las dos opciones se puede apretar normalmente) -->
+    <!-- PASO 1: Nombre de Sim -->
     <div id="step1" class="step active">
       <div class="sims-header">Interacción de Sim 💚</div>
       <h1>¿Cómo te llamas?</h1>
@@ -179,17 +179,17 @@
       </div>
     </div>
 
-    <!-- PASO 2: Pregunta Sorpresa -->
+    <!-- PASO 2: Pregunta Sorpresa (Sin emojis y con opción "No") -->
     <div id="step2" class="step">
       <div class="sims-header">Notificación 💬</div>
-      <h1>¿Crees que te voy a sorprender? 😏</h1>
+      <h1>¿Crees que te voy a sorprender?</h1>
       <div class="btn-container">
-        <button class="btn btn-sims-blue" onclick="nextStep(3)">¡Obvio que sí! ✨</button>
-        <button class="btn btn-sims-blue" onclick="nextStep(3)">Tengo mis dudas... 🤔</button>
+        <button class="btn btn-sims-blue" onclick="nextStep(3)">¡Obvio que sí!</button>
+        <button class="btn btn-sims-blue" onclick="nextStep(3)">No</button>
       </div>
     </div>
 
-    <!-- PASO 3: Aceptas salir (AQUÍ ES DONDE EL BOTÓN "NO" SE ESCAPA) -->
+    <!-- PASO 3: Aceptas salir (El botón "No" se escapa) -->
     <div id="step3" class="step">
       <div class="sims-header">Nueva Cita 🌹</div>
       <h1>¿Aceptas salir conmigo?</h1>
