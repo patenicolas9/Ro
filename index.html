@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>¿Salimos?</title>
+  <title>Los Sims - Cita Especial</title>
   <style>
     * { box-sizing: border-box; }
+    
     body {
       display: flex;
       flex-direction: column;
@@ -14,25 +15,62 @@
       min-height: 100vh;
       margin: 0;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #ffe6e6;
+      background: linear-gradient(135deg, #11365d 0%, #1e5799 50%, #2989d8 100%);
       text-align: center;
       padding: 20px;
     }
 
-    .card {
-      background: white;
-      padding: 30px;
-      border-radius: 20px;
-      box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    /* Diamante Plumbob de Los Sims */
+    .plumbob-container {
+      margin-bottom: -20px;
+      z-index: 10;
+    }
+    .plumbob {
+      width: 45px;
+      height: 90px;
+      background: linear-gradient(135deg, #00ff44, #008822);
+      clip-path: polygon(50% 0%, 100% 50%, 50% 100%, 0% 50%);
+      margin: 0 auto;
+      filter: drop-shadow(0 0 12px rgba(0, 255, 68, 0.8));
+      animation: spinPlumbob 4s infinite linear, floatPlumbob 2s infinite ease-in-out alternate;
+    }
+
+    @keyframes floatPlumbob {
+      0% { transform: translateY(0px); }
+      100% { transform: translateY(-10px); }
+    }
+
+    /* Tarjeta estilo Interfaz de Los Sims */
+    .sims-card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(230,242,255,0.95) 100%);
+      border: 4px solid #00a8ff;
+      border-radius: 25px;
+      padding: 30px 25px;
+      box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(0,168,255,0.2);
       max-width: 420px;
       width: 100%;
       position: relative;
     }
 
+    .sims-header {
+      background: #0072bc;
+      color: white;
+      padding: 8px 15px;
+      border-radius: 50px;
+      font-weight: bold;
+      font-size: 0.9rem;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      display: inline-block;
+      margin-bottom: 15px;
+      box-shadow: 0 3px 6px rgba(0,0,0,0.2);
+    }
+
     h1 {
-      color: #d32f2f;
-      font-size: 1.6rem;
+      color: #0b3b60;
+      font-size: 1.5rem;
       margin-bottom: 25px;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
 
     .btn-container {
@@ -47,20 +85,39 @@
 
     .btn {
       padding: 12px 25px;
-      font-size: 1.1rem;
+      font-size: 1.05rem;
       font-weight: bold;
-      border: none;
+      border: 2px solid white;
       border-radius: 50px;
       cursor: pointer;
-      box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-      transition: transform 0.1s ease;
-      background-color: #ff4d4d;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      transition: all 0.2s ease;
       color: white;
       z-index: 2;
     }
 
     .btn:hover { transform: scale(1.05); }
 
+    /* Botones temáticos */
+    .btn-sims-green {
+      background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
+      box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
+    }
+
+    .btn-sims-red {
+      background: linear-gradient(180deg, #e74c3c 0%, #c0392b 100%);
+      box-shadow: 0 4px 12px rgba(231, 76, 60, 0.4);
+    }
+
+    #noBtn {
+      transition: top 0.2s ease, left 0.2s ease;
+    }
+
+    .btn-sims-blue {
+      background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
+    }
+
+    /* Grid de opciones con imágenes */
     .grid-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -70,134 +127,163 @@
 
     .btn-card {
       background: white;
-      border: 2px solid #ffe6e6;
-      border-radius: 15px;
-      padding: 10px;
+      border: 3px solid #7ed6df;
+      border-radius: 18px;
+      padding: 8px;
       cursor: pointer;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+      box-shadow: 0 5px 12px rgba(0,0,0,0.1);
       transition: transform 0.2s;
     }
-    .btn-card:hover { transform: scale(1.05); }
+    .btn-card:hover { 
+      transform: scale(1.05);
+      border-color: #00a8ff;
+    }
     .btn-card img {
       width: 100%;
       height: 90px;
       object-fit: cover;
-      border-radius: 10px;
+      border-radius: 12px;
     }
     .btn-card span {
       display: block;
       margin-top: 8px;
       font-weight: bold;
-      color: #d32f2f;
-    }
-
-    #yesBtn { background-color: #25D366; }
-    
-    #noBtn { 
-      background-color: #ff4d4d; 
-      transition: top 0.2s ease, left 0.2s ease;
+      color: #0b3b60;
     }
 
     .step { display: none; }
     .step.active { display: block; }
 
-    .emoji {
-      font-size: 4rem;
-      margin-top: 15px;
+    .sim-icon {
+      font-size: 3.5rem;
+      margin-top: 10px;
     }
   </style>
 </head>
 <body>
 
-  <div class="card">
-    <!-- PASO 1 -->
+  <!-- Diamante verde flotante de Los Sims -->
+  <div class="plumbob-container">
+    <div class="plumbob"></div>
+  </div>
+
+  <div class="sims-card">
+    
+    <!-- PASO 1: Nombre de Sim (Cualquiera de las dos opciones se puede apretar normalmente) -->
     <div id="step1" class="step active">
-      <h1>¿Aceptas salir conmigo? 🌹</h1>
+      <div class="sims-header">Interacción de Sim 💚</div>
+      <h1>¿Cómo te llamas?</h1>
       <div class="btn-container">
-        <button class="btn" id="yesBtn" onclick="nextStep(2)">Sí</button>
-        <button class="btn" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">No</button>
+        <button class="btn btn-sims-green" onclick="nextStep(2)">Ro 💚</button>
+        <button class="btn btn-sims-red" onclick="nextStep(2)">Ro ❤️</button>
       </div>
     </div>
 
-    <!-- PASO 2 -->
+    <!-- PASO 2: Pregunta Sorpresa -->
     <div id="step2" class="step">
-      <h1>¿Qué día preferís? 📅</h1>
+      <div class="sims-header">Notificación 💬</div>
+      <h1>¿Crees que te voy a sorprender? 😏</h1>
       <div class="btn-container">
-        <button class="btn" onclick="selectOption('dia', 'Lunes'); nextStep(3)">Lunes</button>
-        <button class="btn" onclick="selectOption('dia', 'Martes'); nextStep(3)">Martes</button>
-        <button class="btn" onclick="selectOption('dia', 'Miércoles'); nextStep(3)">Miércoles</button>
+        <button class="btn btn-sims-blue" onclick="nextStep(3)">¡Obvio que sí! ✨</button>
+        <button class="btn btn-sims-blue" onclick="nextStep(3)">Tengo mis dudas... 🤔</button>
       </div>
     </div>
 
-    <!-- PASO 3 (Opciones con fotos) -->
+    <!-- PASO 3: Aceptas salir (AQUÍ ES DONDE EL BOTÓN "NO" SE ESCAPA) -->
     <div id="step3" class="step">
-      <h1>¿Qué te gustaría hacer? ✨</h1>
+      <div class="sims-header">Nueva Cita 🌹</div>
+      <h1>¿Aceptas salir conmigo?</h1>
+      <div class="btn-container">
+        <button class="btn btn-sims-green" onclick="nextStep(4)">¡Sí, acepto!</button>
+        <button class="btn btn-sims-red" id="noBtn" onmouseover="moverBoton()" onclick="moverBoton()" ontouchstart="moverBoton()">No</button>
+      </div>
+    </div>
+
+    <!-- PASO 4: Selección de Día -->
+    <div id="step4" class="step">
+      <div class="sims-header">Calendario 📅</div>
+      <h1>¿Qué día preferís?</h1>
+      <div class="btn-container">
+        <button class="btn btn-sims-blue" onclick="selectOption('dia', 'Lunes'); nextStep(5)">Lunes</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('dia', 'Martes'); nextStep(5)">Martes</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('dia', 'Miércoles'); nextStep(5)">Miércoles</button>
+      </div>
+    </div>
+
+    <!-- PASO 5: Opciones con Fotos -->
+    <div id="step5" class="step">
+      <div class="sims-header">Deseo de Sim 🍰</div>
+      <h1>¿Qué te gustaría hacer?</h1>
       <div class="grid-cards">
-        <div class="btn-card" onclick="selectOption('comida', 'Desayuno'); showHorarios('desayuno'); nextStep(4)">
+        <div class="btn-card" onclick="selectOption('comida', 'Desayuno'); showHorarios('desayuno'); nextStep(6)">
           <img src="https://images.unsplash.com/photo-1533089860892-a7c6f0a88666?auto=format&fit=crop&w=400&q=80" alt="Desayuno">
           <span>Desayuno</span>
         </div>
-        <div class="btn-card" onclick="selectOption('comida', 'Merienda'); showHorarios('merienda'); nextStep(4)">
+        <div class="btn-card" onclick="selectOption('comida', 'Merienda'); showHorarios('merienda'); nextStep(6)">
           <img src="https://images.unsplash.com/photo-1509042239860-f550ce710b93?auto=format&fit=crop&w=400&q=80" alt="Merienda">
           <span>Merienda</span>
         </div>
-        <div class="btn-card" onclick="selectOption('comida', 'Cine'); showHorarios('cine'); nextStep(4)">
+        <div class="btn-card" onclick="selectOption('comida', 'Cine'); showHorarios('cine'); nextStep(6)">
           <img src="https://images.unsplash.com/photo-1489599849927-2ee91cede3ba?auto=format&fit=crop&w=400&q=80" alt="Cine">
           <span>Cine</span>
         </div>
-        <div class="btn-card" onclick="selectOption('comida', 'Cena'); showHorarios('cena'); nextStep(4)">
+        <div class="btn-card" onclick="selectOption('comida', 'Cena'); showHorarios('cena'); nextStep(6)">
           <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=400&q=80" alt="Cena">
           <span>Cena</span>
         </div>
       </div>
     </div>
 
-    <!-- PASO 4 (Horarios dinámicos) -->
-    <div id="step4" class="step">
-      <h1>¿A qué hora? ⏰</h1>
+    <!-- PASO 6: Horarios Dinámicos -->
+    <div id="step6" class="step">
+      <div class="sims-header">Reloj de la ciudad ⏰</div>
+      <h1>¿A qué hora?</h1>
       
       <div id="horariosDesayuno" class="btn-container" style="display:none;">
-        <button class="btn" onclick="selectOption('hora', '9:00 AM'); nextStep(5)">9 AM</button>
-        <button class="btn" onclick="selectOption('hora', '10:00 AM'); nextStep(5)">10 AM</button>
-        <button class="btn" onclick="selectOption('hora', '11:00 AM'); nextStep(5)">11 AM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '9:00 AM'); nextStep(7)">9 AM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '10:00 AM'); nextStep(7)">10 AM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '11:00 AM'); nextStep(7)">11 AM</button>
       </div>
 
       <div id="horariosMerienda" class="btn-container" style="display:none;">
-        <button class="btn" onclick="selectOption('hora', '4:00 PM'); nextStep(5)">4 PM</button>
-        <button class="btn" onclick="selectOption('hora', '5:00 PM'); nextStep(5)">5 PM</button>
-        <button class="btn" onclick="selectOption('hora', '6:00 PM'); nextStep(5)">6 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '4:00 PM'); nextStep(7)">4 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '5:00 PM'); nextStep(7)">5 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '6:00 PM'); nextStep(7)">6 PM</button>
       </div>
 
       <div id="horariosCine" class="btn-container" style="display:none;">
-        <button class="btn" onclick="selectOption('hora', '7:00 PM'); nextStep(5)">7 PM</button>
-        <button class="btn" onclick="selectOption('hora', '8:30 PM'); nextStep(5)">8:30 PM</button>
-        <button class="btn" onclick="selectOption('hora', '10:00 PM'); nextStep(5)">10 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '7:00 PM'); nextStep(7)">7 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '8:30 PM'); nextStep(7)">8:30 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '10:00 PM'); nextStep(7)">10 PM</button>
       </div>
 
       <div id="horariosCena" class="btn-container" style="display:none;">
-        <button class="btn" onclick="selectOption('hora', '8:00 PM'); nextStep(5)">8 PM</button>
-        <button class="btn" onclick="selectOption('hora', '9:00 PM'); nextStep(5)">9 PM</button>
-        <button class="btn" onclick="selectOption('hora', '10:00 PM'); nextStep(5)">10 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '8:00 PM'); nextStep(7)">8 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '9:00 PM'); nextStep(7)">9 PM</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('hora', '10:00 PM'); nextStep(7)">10 PM</button>
       </div>
     </div>
 
-    <!-- PASO 5 (Lugares) -->
-    <div id="step5" class="step">
-      <h1>¿Dónde nos vemos? 📍</h1>
+    <!-- PASO 7: Lugar -->
+    <div id="step7" class="step">
+      <div class="sims-header">Mapa del barrio 📍</div>
+      <h1>¿Dónde nos vemos?</h1>
       <div class="btn-container">
-        <button class="btn" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
-        <button class="btn" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
-        <button class="btn" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
       </div>
     </div>
 
-    <!-- PASO FINAL -->
-    <div id="step6" class="step">
+    <!-- PASO FINAL: Confirmación de Cita -->
+    <div id="step8" class="step">
+      <div class="sims-header">¡Nivel de relación ➕100!</div>
       <h1>¡Perfecto! Nos vemos 😉</h1>
-      <div class="emoji">😊</div>
-      <p id="resumen" style="color: #555; margin-top: 15px; font-size: 1.05rem;"></p>
-      <button class="btn" id="yesBtn" style="margin-top: 20px;" onclick="enviarWhatsApp()">Enviar confirmación por WhatsApp 📲</button>
+      <div class="sim-icon">💚 Dag dag! 😊</div>
+      <p id="resumen" style="color: #0b3b60; margin-top: 15px; font-size: 1.05rem;"></p>
+      <button class="btn btn-sims-green" style="margin-top: 20px;" onclick="enviarWhatsApp()">Enviar confirmación por WhatsApp 📲</button>
     </div>
+
   </div>
 
   <script>
@@ -205,7 +291,7 @@
 
     function moverBoton() {
       const noBtn = document.getElementById('noBtn');
-      const card = document.querySelector('.card');
+      const card = document.querySelector('.sims-card');
       
       noBtn.style.position = 'absolute';
 
@@ -237,7 +323,7 @@
     }
 
     function finalizar() {
-      nextStep(6);
+      nextStep(8);
       
       let textoLugar = cita.lugar;
       if (cita.lugar === 'Te busco por donde te quede cómodo') {
@@ -247,13 +333,13 @@
       }
 
       document.getElementById('resumen').innerHTML = 
-        `Quedamos el <b>${cita.dia}</b> para un plan de <b>${cita.comida}</b> a las <b>${cita.hora}</b> (${textoLugar}).`;
+        `Cita programada para el <b>${cita.dia}</b>: Plan de <b>${cita.comida}</b> a las <b>${cita.hora}</b> (${textoLugar}).`;
     }
 
     function enviarWhatsApp() {
       // REEMPLAZA ESTE NÚMERO POR EL TUYO (Código de país + número sin espacios ni signos +)
       const miNumero = "1234567890"; 
-      const mensaje = `¡Hola! Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} (${cita.lugar}) 😊`;
+      const mensaje = `¡Hola! Cita aceptada en Los Sims 💚 Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} (${cita.lugar}) 😊`;
       window.location.href = `https://wa.me/${miNumero}?text=${encodeURIComponent(mensaje)}`;
     }
   </script>
