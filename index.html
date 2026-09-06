@@ -162,8 +162,10 @@
     .step.active { display: block; }
 
     .sim-icon {
-      font-size: 3.5rem;
-      margin-top: 10px;
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #0b3b60;
+      margin-top: 15px;
     }
   </style>
 </head>
@@ -196,7 +198,7 @@
       </div>
     </div>
 
-    <!-- PASO 3: ¿Querés salir conmigo? (Opciones bien separadas verticalmente) -->
+    <!-- PASO 3: ¿Querés salir conmigo? -->
     <div id="step3" class="step">
       <div class="sims-header">Nueva Cita 🌹</div>
       <h1>¿Querés salir conmigo?</h1>
@@ -271,7 +273,7 @@
       </div>
     </div>
 
-    <!-- PASO 7: Lugar (Con opción Cine agregada) -->
+    <!-- PASO 7: Lugar -->
     <div id="step7" class="step">
       <div class="sims-header">Mapa del barrio 📍</div>
       <h1>¿Dónde nos vemos?</h1>
@@ -287,7 +289,7 @@
     <div id="step8" class="step">
       <div class="sims-header">¡Nivel de relación ➕100!</div>
       <h1>¡Perfecto! Nos vemos 😉</h1>
-      <div class="sim-icon">💚 Dag dag! 😊</div>
+      <div class="sim-icon">💚 Dag dag!</div>
       <p id="resumen" style="color: #0b3b60; margin-top: 15px; font-size: 1.05rem;"></p>
       <button class="btn btn-sims-green" style="margin-top: 20px;" onclick="enviarWhatsApp()">Enviar confirmación por WhatsApp 📲</button>
     </div>
@@ -345,8 +347,8 @@
     }
 
     function enviarWhatsApp() {
-      // REEMPLAZA ESTE NÚMERO POR EL TUYO (Código de país + número sin espacios ni signos +)
-      const miNumero = "1234567890"; 
+      // Número de teléfono configurado
+      const miNumero = "5492236907429"; 
       const mensaje = `¡Hola! Cita aceptada en Los Sims 💚 Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} (${cita.lugar}) 😊`;
       window.location.href = `https://wa.me/${miNumero}?text=${encodeURIComponent(mensaje)}`;
     }
