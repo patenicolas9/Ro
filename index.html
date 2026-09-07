@@ -68,8 +68,8 @@
 
     h1 {
       color: #0b3b60;
-      font-size: 1.5rem;
-      margin-bottom: 25px;
+      font-size: 1.4rem;
+      margin-bottom: 20px;
       text-shadow: 0 1px 2px rgba(255,255,255,0.8);
     }
 
@@ -79,11 +79,10 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 15px;
+      gap: 12px;
       flex-wrap: wrap;
     }
 
-    /* Para separar las opciones verticalmente en el Paso 3 */
     .btn-container-vertical {
       flex-direction: column;
       min-height: 140px;
@@ -91,7 +90,7 @@
     }
 
     .btn {
-      padding: 12px 25px;
+      padding: 12px 22px;
       font-size: 1.05rem;
       font-weight: bold;
       border: 2px solid white;
@@ -105,7 +104,6 @@
 
     .btn:hover { transform: scale(1.05); }
 
-    /* Botones temáticos */
     .btn-sims-green {
       background: linear-gradient(180deg, #2ecc71 0%, #27ae60 100%);
       box-shadow: 0 4px 12px rgba(46, 204, 113, 0.4);
@@ -147,7 +145,7 @@
     }
     .btn-card img {
       width: 100%;
-      height: 90px;
+      height: 110px;
       object-fit: cover;
       border-radius: 12px;
     }
@@ -156,6 +154,7 @@
       margin-top: 8px;
       font-weight: bold;
       color: #0b3b60;
+      font-size: 0.95rem;
     }
 
     .step { display: none; }
@@ -278,15 +277,59 @@
       <div class="sims-header">Mapa del barrio 📍</div>
       <h1>¿Dónde nos vemos?</h1>
       <div class="btn-container">
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Cine'); finalizar()">Cine 🍿</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); procesarLugar('Sao')">Sao</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); procesarLugar('La Fonte')">La Fonte</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Cine'); procesarLugar('Cine')">Cine 🍿</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); procesarLugar('Te busco por donde te quede cómodo')">Te busco por donde te quede cómodo 🚗</button>
+      </div>
+    </div>
+
+    <!-- PASO 8 (CINE): ¿Qué querés comer? -->
+    <div id="step8" class="step">
+      <div class="sims-header">Candy Bar 🍿</div>
+      <h1>¿Qué querés comer?</h1>
+      <div class="btn-container">
+        <button class="btn btn-sims-blue" onclick="selectOption('comidaCine', 'Pochoclos'); nextStep(9)">Pochoclos 🍿</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('comidaCine', 'Nachos'); nextStep(9)">Nachos 🧀</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('comidaCine', 'Luccianos'); nextStep(9)">Luccianos 🍦</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('comidaCine', 'Sorpresa'); nextStep(9)">Sorpresa ✨</button>
+      </div>
+    </div>
+
+    <!-- PASO 9 (CINE): ¿Qué película ver? (Con imágenes) -->
+    <div id="step9" class="step">
+      <div class="sims-header">Cartelera de Cine 🎬</div>
+      <h1>¿Qué película ver?</h1>
+      <div class="grid-cards">
+        <div class="btn-card" onclick="selectOption('pelicula', 'El Coyote'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=400&q=80" alt="El coyote">
+          <span>El coyote</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('pelicula', 'Zona Cero'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=400&q=80" alt="Zona Cero">
+          <span>Zona Cero</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('pelicula', 'La negociación'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=400&q=80" alt="La negociación">
+          <span>La negociación</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('pelicula', 'Pepita la Pistolera'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&w=400&q=80" alt="Pepita la Pistolera">
+          <span>Pepita la Pistolera</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('pelicula', 'Yo Narciso'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=400&q=80" alt="Yo Narciso">
+          <span>Yo Narciso</span>
+        </div>
+        <div class="btn-card" onclick="selectOption('pelicula', 'La guerra de los últimos'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=400&q=80" alt="La guerra de los últimos">
+          <span>La guerra de los últimos</span>
+        </div>
       </div>
     </div>
 
     <!-- PASO FINAL: Confirmación de Cita -->
-    <div id="step8" class="step">
+    <div id="step10" class="step">
       <div class="sims-header">¡Nivel de relación ➕100!</div>
       <h1>¡Perfecto! Nos vemos 😉</h1>
       <div class="sim-icon">💚 Dag dag!</div>
@@ -297,7 +340,7 @@
   </div>
 
   <script>
-    const cita = { dia: '', comida: '', hora: '', lugar: '' };
+    const cita = { dia: '', comida: '', hora: '', lugar: '', comidaCine: '', pelicula: '' };
 
     function moverBoton() {
       const noBtn = document.getElementById('noBtn');
@@ -332,8 +375,16 @@
       document.getElementById('horariosCena').style.display = tipo === 'cena' ? 'flex' : 'none';
     }
 
+    function procesarLugar(lugarSeleccionado) {
+      if (cita.comida === 'Cine' || lugarSeleccionado === 'Cine') {
+        nextStep(8); // Pasa a la pregunta de comida de cine
+      } else {
+        finalizar();
+      }
+    }
+
     function finalizar() {
-      nextStep(8);
+      nextStep(10);
       
       let textoLugar = cita.lugar;
       if (cita.lugar === 'Te busco por donde te quede cómodo') {
@@ -342,14 +393,24 @@
         textoLugar = `en <b>${cita.lugar}</b>`;
       }
 
+      let detalleExtra = '';
+      if (cita.comida === 'Cine' || cita.lugar === 'Cine') {
+        detalleExtra = `<br>Película: <b>${cita.pelicula}</b> | Snack: <b>${cita.comidaCine}</b>`;
+      }
+
       document.getElementById('resumen').innerHTML = 
-        `Cita programada para el <b>${cita.dia}</b>: Plan de <b>${cita.comida}</b> a las <b>${cita.hora}</b> (${textoLugar}).`;
+        `Cita programada para el <b>${cita.dia}</b>: Plan de <b>${cita.comida}</b> a las <b>${cita.hora}</b> (${textoLugar}).${detalleExtra}`;
     }
 
     function enviarWhatsApp() {
-      // Número de teléfono configurado
       const miNumero = "5492236907429"; 
-      const mensaje = `¡Hola! Cita aceptada en Los Sims 💚 Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} (${cita.lugar}) 😊`;
+      
+      let detalleCine = '';
+      if (cita.comida === 'Cine' || cita.lugar === 'Cine') {
+        detalleCine = ` (Película: ${cita.pelicula}, Snacks: ${cita.comidaCine})`;
+      }
+
+      const mensaje = `¡Hola! Cita aceptada en Los Sims 💚 Quedamos el ${cita.dia} para ${cita.comida} a las ${cita.hora} (${cita.lugar})${detalleCine} 😊`;
       window.location.href = `https://wa.me/${miNumero}?text=${encodeURIComponent(mensaje)}`;
     }
   </script>
