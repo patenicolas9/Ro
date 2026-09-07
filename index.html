@@ -45,9 +45,9 @@
       background: linear-gradient(180deg, rgba(255,255,255,0.95) 0%, rgba(230,242,255,0.95) 100%);
       border: 4px solid #00a8ff;
       border-radius: 25px;
-      padding: 30px 25px;
+      padding: 25px 20px;
       box-shadow: 0 12px 30px rgba(0,0,0,0.4), inset 0 0 15px rgba(0,168,255,0.2);
-      max-width: 420px;
+      max-width: 440px;
       width: 100%;
       position: relative;
     }
@@ -122,6 +122,7 @@
       background: linear-gradient(180deg, #3498db 0%, #2980b9 100%);
     }
 
+    /* Grid de opciones con imágenes para comida/plan */
     .grid-cards {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -139,7 +140,7 @@
       transition: transform 0.2s;
     }
     .btn-card:hover { 
-      transform: scale(1.05);
+      transform: scale(1.03);
       border-color: #00a8ff;
     }
     .btn-card img {
@@ -154,6 +155,62 @@
       font-weight: bold;
       color: #0b3b60;
       font-size: 0.95rem;
+    }
+
+    /* Cartelera de Películas estilo Boletería */
+    .movie-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      max-height: 380px;
+      overflow-y: auto;
+      padding-right: 5px;
+    }
+
+    .movie-card {
+      background: white;
+      border: 3px solid #7ed6df;
+      border-radius: 16px;
+      padding: 10px;
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+      transition: transform 0.2s, border-color 0.2s;
+    }
+
+    .movie-card:hover {
+      transform: scale(1.02);
+      border-color: #00a8ff;
+    }
+
+    .movie-card img {
+      width: 75px;
+      height: 110px;
+      object-fit: cover;
+      border-radius: 10px;
+      flex-shrink: 0;
+    }
+
+    .movie-info {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    .movie-info h3 {
+      margin: 0 0 5px 0;
+      color: #0b3b60;
+      font-size: 1.05rem;
+    }
+
+    .movie-info p {
+      margin: 0;
+      color: #555;
+      font-size: 0.82rem;
+      line-height: 1.25;
     }
 
     .step { display: none; }
@@ -282,14 +339,14 @@
       <div class="sims-header">Mapa del barrio 📍</div>
       <h1>¿Dónde nos vemos?</h1>
       
-      <!-- Si eligió Desayuno, Merienda o Cena -->
+      <!-- Opciones Normales (Desayuno, Merienda, Cena) -->
       <div id="lugaresNormales" class="btn-container" style="display:none;">
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
       </div>
 
-      <!-- Si eligió Cine -->
+      <!-- Opciones para Cine -->
       <div id="lugaresCine" class="btn-container btn-container-vertical" style="display:none;">
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); nextStep(8)">Te busco por donde te quede cómodo 🚗</button>
         <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'En el Aldrey'); nextStep(8)">En el Aldrey</button>
@@ -297,7 +354,7 @@
       </div>
     </div>
 
-    <!-- PASO 8 (SOLO CINE): ¿Qué querés comer? -->
+    <!-- PASO 8 (SOLO CINE): Candy Bar -->
     <div id="step8" class="step">
       <div class="sims-header">Candy Bar 🍿</div>
       <h1>¿Qué querés comer?</h1>
@@ -309,17 +366,60 @@
       </div>
     </div>
 
-    <!-- PASO 9 (SOLO CINE): ¿Qué película ver? -->
+    <!-- PASO 9 (SOLO CINE): Cartelera con Imágenes y Sinopsis -->
     <div id="step9" class="step">
-      <div class="sims-header">Cartelera de Cinemacenter 🎬</div>
+      <div class="sims-header">Cartelera de Cine 🎬</div>
       <h1>¿Qué película ver?</h1>
-      <div class="btn-container btn-container-vertical">
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'El coyote'); finalizar()">El coyote</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'Zona Cero'); finalizar()">Zona Cero</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'La negociación'); finalizar()">La negociación</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'Pepita la Pistolera'); finalizar()">Pepita la Pistolera</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'Yo Narciso'); finalizar()">Yo Narciso</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('pelicula', 'La guerra de los últimos'); finalizar()">La guerra de los últimos</button>
+      <div class="movie-grid">
+        
+        <div class="movie-card" onclick="selectOption('pelicula', 'El coyote'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1536440136628-849c177e76a1?auto=format&fit=crop&w=300&q=80" alt="El coyote">
+          <div class="movie-info">
+            <h3>El coyote</h3>
+            <p>Wile E. Coyote decide demandar a ACME con un peculiar abogado tras años de productos defectuosos.</p>
+          </div>
+        </div>
+
+        <div class="movie-card" onclick="selectOption('pelicula', 'Zona Cero'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=300&q=80" alt="Zona Cero">
+          <div class="movie-info">
+            <h3>Zona Cero</h3>
+            <p>Un virus se desata en una conferencia de biotecnología y un grupo lucha por sobrevivir en el encierro.</p>
+          </div>
+        </div>
+
+        <div class="movie-card" onclick="selectOption('pelicula', 'La negociación'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1509198397868-475647b2a1e5?auto=format&fit=crop&w=300&q=80" alt="La negociación">
+          <div class="movie-info">
+            <h3>La negociación</h3>
+            <p>La historia real de un tenso enfrentamiento y un reclamo de disculpa pública retransmitido a millones.</p>
+          </div>
+        </div>
+
+        <div class="movie-card" onclick="selectOption('pelicula', 'Pepita la Pistolera'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1595769816263-9b910be24d5f?auto=format&fit=crop&w=300&q=80" alt="Pepita la Pistolera">
+          <div class="movie-info">
+            <h3>Pepita la Pistolera</h3>
+            <p>Una madre desafía al peligro en Mar del Plata de 1985 tras un incidente que la convierte en leyenda.</p>
+          </div>
+        </div>
+
+        <div class="movie-card" onclick="selectOption('pelicula', 'Yo Narciso'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1574267432553-4b4628081c31?auto=format&fit=crop&w=300&q=80" alt="Yo Narciso">
+          <div class="movie-info">
+            <h3>Yo Narciso</h3>
+            <p>Un drama cautivador sobre la obsesión, el ego y las relaciones en la búsqueda de la imagen perfecta.</p>
+          </div>
+        </div>
+
+        <div class="movie-card" onclick="selectOption('pelicula', 'La guerra de los últimos'); finalizar()">
+          <img src="https://images.unsplash.com/photo-1478720568477-152d9b164e26?auto=format&fit=crop&w=300&q=80" alt="La guerra de los últimos">
+          <div class="movie-info">
+            <h3>La guerra de los últimos</h3>
+            <p>Un thriller épico sobre sobrevivientes en un entorno hostil donde cada decisión cuenta.</p>
+          </div>
+        </div>
+
       </div>
     </div>
 
