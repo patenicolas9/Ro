@@ -277,28 +277,27 @@
       </div>
     </div>
 
-    <!-- PASO 7: Lugar (Dinámico según si es Cine u otra opción) -->
+    <!-- PASO 7: Lugar -->
     <div id="step7" class="step">
       <div class="sims-header">Mapa del barrio 📍</div>
       <h1>¿Dónde nos vemos?</h1>
       
-      <!-- Opciones Normales (Desayuno, Merienda, Cena) -->
+      <!-- Si eligió Desayuno, Merienda o Cena -->
       <div id="lugaresNormales" class="btn-container" style="display:none;">
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); procesarLugar('Sao')">Sao</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); procesarLugar('La Fonte')">La Fonte</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Cine'); procesarLugar('Cine')">Cine 🍿</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); procesarLugar('Te busco por donde te quede cómodo')">Te busco por donde te quede cómodo 🚗</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Sao'); finalizar()">Sao</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'La Fonte'); finalizar()">La Fonte</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); finalizar()">Te busco por donde te quede cómodo 🚗</button>
       </div>
 
-      <!-- Opciones cuando eligió Cine en "¿Qué te gustaría hacer?" -->
-      <div id="lugaresCine" class="btn-container" style="display:none;">
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'En el Aldrey'); procesarLugar('En el Aldrey')">En el Aldrey</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'En Los Gallegos'); procesarLugar('En Los Gallegos')">En Los Gallegos</button>
-        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); procesarLugar('Te busco por donde te quede cómodo')">Te busco por donde te quede cómodo 🚗</button>
+      <!-- Si eligió Cine -->
+      <div id="lugaresCine" class="btn-container btn-container-vertical" style="display:none;">
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'Te busco por donde te quede cómodo'); nextStep(8)">Te busco por donde te quede cómodo 🚗</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'En el Aldrey'); nextStep(8)">En el Aldrey</button>
+        <button class="btn btn-sims-blue" onclick="selectOption('lugar', 'En Los Gallegos'); nextStep(8)">En Los Gallegos</button>
       </div>
     </div>
 
-    <!-- PASO 8 (CINE): ¿Qué querés comer? -->
+    <!-- PASO 8 (SOLO CINE): ¿Qué querés comer? -->
     <div id="step8" class="step">
       <div class="sims-header">Candy Bar 🍿</div>
       <h1>¿Qué querés comer?</h1>
@@ -310,7 +309,7 @@
       </div>
     </div>
 
-    <!-- PASO 9 (CINE): ¿Qué película ver? -->
+    <!-- PASO 9 (SOLO CINE): ¿Qué película ver? -->
     <div id="step9" class="step">
       <div class="sims-header">Cartelera de Cinemacenter 🎬</div>
       <h1>¿Qué película ver?</h1>
@@ -382,14 +381,6 @@
       nextStep(7);
     }
 
-    function procesarLugar(lugarSeleccionado) {
-      if (cita.comida === 'Cine' || lugarSeleccionado === 'Cine' || lugarSeleccionado === 'En el Aldrey' || lugarSeleccionado === 'En Los Gallegos') {
-        nextStep(8); // Pasa al Candy Bar
-      } else {
-        finalizar();
-      }
-    }
-
     function finalizar() {
       nextStep(10);
       
@@ -401,7 +392,7 @@
       }
 
       let detalleExtra = '';
-      if (cita.comida === 'Cine' || cita.lugar === 'Cine' || cita.lugar === 'En el Aldrey' || cita.lugar === 'En Los Gallegos') {
+      if (cita.comida === 'Cine') {
         detalleExtra = `<br>Película: <b>${cita.pelicula}</b> | Snack: <b>${cita.comidaCine}</b>`;
       }
 
@@ -413,7 +404,7 @@
       const miNumero = "5492236907429"; 
       
       let detalleCine = '';
-      if (cita.comida === 'Cine' || cita.lugar === 'Cine' || cita.lugar === 'En el Aldrey' || cita.lugar === 'En Los Gallegos') {
+      if (cita.comida === 'Cine') {
         detalleCine = ` (Película: ${cita.pelicula}, Snacks: ${cita.comidaCine})`;
       }
 
